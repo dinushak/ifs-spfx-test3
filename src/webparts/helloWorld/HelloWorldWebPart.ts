@@ -2,7 +2,8 @@ import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneDropdown
 } from '@microsoft/sp-webpart-base';
 import { escape } from '@microsoft/sp-lodash-subset';
 
@@ -11,6 +12,7 @@ import * as strings from 'HelloWorldWebPartStrings';
 
 export interface IHelloWorldWebPartProps {
   description: string;
+  Color:string;
 }
 
 export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorldWebPartProps> {
@@ -24,6 +26,7 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
               <span class="${ styles.title }">Welcome to SharePoint!</span>
               <p class="${ styles.subTitle }">Customize SharePoint experiences using Web Parts.</p>
               <p class="${ styles.description }">${escape(this.properties.description)}</p>
+              <p class="${ styles.description }">${escape(this.properties.Color)}</p>
               <a href="https://aka.ms/spfx" class="${ styles.button }">
                 <span class="${ styles.label }">Learn more</span>
               </a>
@@ -51,7 +54,22 @@ export default class HelloWorldWebPart extends BaseClientSideWebPart<IHelloWorld
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
                 })
-              ]
+              ],             
+            },
+            {
+              groupName: strings.BasicGroupName,
+              groupFields: [
+                PropertyPaneDropdown('Color', {
+                  label: 'Dropdown',
+                  options:[
+                    {key: '1', text:'Red'},
+                    {key: '2', text:'Blue'},
+                    {key: '3', text:'Green'},
+                    {key: '4', text:'Orange'},
+                  ]
+                })
+              ],
+              
             }
           ]
         }
